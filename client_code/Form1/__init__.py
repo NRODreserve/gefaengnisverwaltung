@@ -12,9 +12,10 @@ class Form1(Form1Template):
     self.init_components(**properties)
     
     # Any code you write here will run before the form opens.
-    self.gefaengnisse_drop_down.items = anvil.server.call('get_gefaengnisse')
-    self.label_direktor.text = "Direktor TODO" 
-    self.label_freie_zellen.text = "Freie Zellen TODO"
+    gefaengnis_daten = anvil.server.call('get_gefaengnisse', "namen, gefaengnis_ID")
+    self.gefaengnisse_drop_down.items = [(namen, gefaengnis_ID) for namen, gefaengnis_ID in gefaengnis_daten]
+    self.label_direktor.text = anvil.server.call('get_direktor')
+    self.label_freie_zellen.text = anvil.server.call('get_freie_zellen')
     self.repeating_zellen.items = [{'zellennummer': 'TODO', 'anzahl_häftlinge': 'TODO'}, 
                                    {'zellennummer': 'TODO', 'anzahl_häftlinge': 'TODO'}]
 
